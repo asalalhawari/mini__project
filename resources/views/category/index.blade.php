@@ -8,49 +8,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-<style>
-     body {
-            font-family: Arial, sans-serif;
+    <title>All Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
-            /* margin: 0;
-            padding: 0; */
         }
 
         .container {
             max-width: 1000px;
-            margin: 30px 350px;
+            margin: 50px auto;
             padding: 20px;
             background-color: #1f2937;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
         }
 
         h1 {
-            color: #7d8491;
-            margin-bottom: 20px;
-            text-align: center;
+            color: #ff69b4;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
 
         .btn {
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 16px;
-            color: #ffffff;
+            color: #fff;
             text-align: center;
             cursor: pointer;
             margin-top: 20px;
             text-decoration: none;
             display: inline-block;
+            transition: background-color 0.3s ease;
         }
 
         .btn-primary {
-            background-color: #007bff;
+            background-color: #ff69b4;
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #ff85c5;
         }
 
         .btn-warning {
@@ -59,7 +60,7 @@
         }
 
         .btn-warning:hover {
-            background-color: #e0a800;
+            background-color: #ffca2c;
         }
 
         .btn-danger {
@@ -68,7 +69,7 @@
         }
 
         .btn-danger:hover {
-            background-color: #c82333;
+            background-color: #e63946;
         }
 
         .alert-success {
@@ -81,20 +82,19 @@
         }
 
         table {
-            width: 900px;
+            width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
         thead {
-            background-color: #007bff;
-            color: #ffffff;
+            background-color: #ff69b4;
+            color: #fff;
         }
 
-        th,
-        td {
+        th, td {
             padding: 12px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #dee2e6;
         }
 
@@ -102,40 +102,25 @@
             background-color: #f2f2f2;
         }
 
-        /* tbody tr:hover {
-            background-color: #e9ecef;
-        } */
-
-        .form-group {
-            margin-bottom: 15px;
+        img {
+            height: 60px;
+            width: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
+        img:hover {
+            transform: scale(1.1);
         }
-
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ced4da;
-            box-sizing: border-box;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-</style>
+    </style>
+</head>
 
 <body>
-    {{-- @include('includes.header'); --}}
     <div class="container">
-        <h1>All category</h1>
-        <a href="{{ route('category.create') }}" class="btn btn-primary mb-3">Add category</a>
+        <h1>All Categories</h1>
+        <a href="{{ route('category.create') }}" class="btn btn-primary mb-3">Add Category</a>
         <form action="{{ route('category.show', 1) }}" method="get"> 
-            <button type="submit" class="btn btn-primary mb-3">View Deleted Item</button>
+            <button type="submit" class="btn btn-primary mb-3">View Deleted Items</button>
         </form>
         @if (session('success'))
             <div class="alert alert-success">
@@ -146,9 +131,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>name</th>
-                    <th>description</th>
-                    <th>image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -158,11 +143,10 @@
                         <td>{{ $cat->id }}</td>
                         <td>{{ $cat->category_name }}</td>
                         <td>{{ $cat->category_description }}</td>
-                        <td><img src="{{ asset($cat->image) }}" style="height: 60px; width:auto;" alt="Post Image"></td>
+                        <td><img src="{{ asset($cat->image) }}" alt="Category Image"></td>
                         <td>
                             <a href="{{ route('category.edit', $cat->id) }}" class="btn btn-warning">Edit</a> 
-                            <form action="{{ route('category.destroy', $cat->id) }}" method="POST" 
-                                style="display:inline;">
+                            <form action="{{ route('category.destroy', $cat->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger"
